@@ -1,0 +1,22 @@
+
+% Ordinary derivative: \dv[n]{x}{f} -> d^n f / dx^n ; \dv[n]{x} -> bare operator d^n/dx^n
+\NewDocumentCommand{\dv}{o m g}{%
+	\IfValueTF{#3}
+		{\IfNoValueTF{#1}
+			{\frac{\mathrm{d} #3}{\mathrm{d} #2}}
+			{\frac{\mathrm{d}^{#1} #3}{\mathrm{d} #2^{#1}}}}
+		{\IfNoValueTF{#1}
+			{\frac{\mathrm{d}}{\mathrm{d} #2}}
+			{\frac{\mathrm{d}^{#1}}{\mathrm{d} #2^{#1}}}}
+}
+
+% Partial derivative: \ddv[n]{x}{f} -> partial^n f / partial x^n ; \ddv[n]{x} -> bare operator
+\NewDocumentCommand{\ddv}{o m g}{%
+	\IfValueTF{#3}
+		{\IfNoValueTF{#1}
+			{\frac{\partial #3}{\partial #2}}
+			{\frac{\partial^{#1} #3}{\partial #2^{#1}}}}
+		{\IfNoValueTF{#1}
+			{\frac{\partial}{\partial #2}}
+			{\frac{\partial^{#1}}{\partial #2^{#1}}}}
+}

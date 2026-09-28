@@ -1,0 +1,282 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Much of this code was taken from Charlie's maths template, available here: %
+% https://github.com/SeniorMars/dotfiles/tree/main/latex_template            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%================================
+% COLORS
+%================================
+
+\definecolor{doc}{RGB}{0,60,110}
+\definecolor{myg}{RGB}{56, 140, 70}        % claim accent
+\definecolor{myp}{RGB}{197, 92, 212}       % corollary accent
+\definecolor{myb}{RGB}{45, 111, 177}       % question accent
+
+\definecolor{mytheorembg}{HTML}{F2F2F9}
+\definecolor{mytheoremfr}{HTML}{00007B}
+\definecolor{mylemmabg}{HTML}{FFFAF8}
+\definecolor{mylemmafr}{HTML}{983b0f}
+\definecolor{myexamplebg}{HTML}{F2FBF8}
+\definecolor{myexamplefr}{HTML}{88D6D1}
+\definecolor{myexampleti}{HTML}{2A7F7F}
+\definecolor{mydefinitbg}{HTML}{FFF5F5}
+\definecolor{mydefinitfr}{HTML}{8A1C1C}
+\definecolor{myremarkbg}{HTML}{FAF9F9}
+\definecolor{myremarkfr}{HTML}{000000}
+
+\definecolor{codebg}{HTML}{F7F8FA}
+\definecolor{codegutter}{HTML}{EDEFF3}
+\definecolor{codeframe}{HTML}{D8DEE8}
+\definecolor{codeaccent}{HTML}{3867D6}
+\definecolor{codekeyword}{HTML}{7C3AED}
+\definecolor{codestring}{HTML}{0F766E}
+\definecolor{codecomment}{HTML}{64748B}
+\definecolor{codenumber}{HTML}{94A3B8}
+\definecolor{codeidentifier}{HTML}{1F2937}
+
+%================================
+% TCOLORBOX BASE STYLES
+%================================
+
+\tcbuselibrary{theorems, skins, hooks, listings}
+
+\tcbset{
+	cmtleftpanel/.style 2 args={
+		enhanced, breakable,
+		colback = #1,
+		frame hidden,
+		boxrule = 0sp,
+		borderline west = {2pt}{0pt}{#2},
+		sharp corners,
+		description font = \mdseries,
+		separator sign none,
+	},
+	cmtleftthm/.style 2 args={
+		cmtleftpanel={#1}{#2},
+		detach title,
+		before upper = \tcbtitle\par\smallskip,
+		coltitle = #2,
+		fonttitle = \bfseries\sffamily,
+		segmentation style={solid, #2},
+	},
+	cmtexamplethm/.style={
+		colback = myexamplebg,
+		breakable,
+		colframe = myexamplefr,
+		coltitle = myexampleti,
+		boxrule = 1pt,
+		sharp corners,
+		detach title,
+		before upper=\tcbtitle\par\smallskip,
+		fonttitle = \bfseries,
+		description font = \mdseries,
+		separator sign none,
+		description delimiters parenthesis,
+	},
+	cmtdefinitionthm/.style={
+		enhanced,
+		before skip=2mm,
+		after skip=2mm,
+		colback=mydefinitbg,
+		colframe=mydefinitfr,
+		boxrule=0.5mm,
+		attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight},
+		varwidth boxed title*=-3cm,
+		colbacktitle=mydefinitfr,
+		coltitle=white,
+		boxed title style={
+			frame code={
+				\path[fill=tcbcolback]
+				([yshift=-1mm,xshift=-1mm]frame.north west)
+				arc[start angle=0,end angle=180,radius=1mm]
+				([yshift=-1mm,xshift=1mm]frame.north east)
+				arc[start angle=180,end angle=0,radius=1mm];
+				\path[left color=tcbcolback!60!black,right color=tcbcolback!60!black,
+					middle color=tcbcolback!80!black]
+				([xshift=-2mm]frame.north west) -- ([xshift=2mm]frame.north east)
+				[rounded corners=1mm]-- ([xshift=1mm,yshift=-1mm]frame.north east)
+				-- (frame.south east) -- (frame.south west)
+				-- ([xshift=-1mm,yshift=-1mm]frame.north west)
+				[sharp corners]-- cycle;
+			},
+			interior engine=empty,
+		},
+		fonttitle=\bfseries,
+	},
+}
+
+\makeatletter
+\tcbset{
+	cmtribbonbox/.style={
+		enhanced,
+		breakable,
+		colback=white,
+		attach boxed title to top left={yshift*=-\tcboxedtitleheight},
+		fonttitle=\bfseries,
+		boxed title size=title,
+		boxed title style={
+			sharp corners,
+			rounded corners=northwest,
+			colback=tcbcolframe,
+			boxrule=0pt,
+		},
+		underlay boxed title={
+			\path[fill=tcbcolframe] (title.south west)--(title.south east)
+			to[out=0, in=180] ([xshift=5mm]title.east)--
+			(title.center-|frame.east)
+			[rounded corners=\kvtcb@arc] |-
+			(frame.north) -| cycle;
+		},
+	},
+}
+\makeatother
+
+%================================
+% THEOREM-FAMILY BOXES
+%================================
+
+\newtcbtheorem[number within=section,
+	crefname={theorem}{theorems}, Crefname={Theorem}{Theorems}]
+	{theorem}{Theorem}{cmtleftthm={mytheorembg}{mytheoremfr}}{th}
+
+\newtcbtheorem[number within=section,
+	crefname={corollary}{corollaries}, Crefname={Corollary}{Corollaries}]
+	{corollary}{Corollary}{cmtleftthm={myp!10}{myp!85!black}}{th}
+
+\newtcbtheorem[number within=section,
+	crefname={lemma}{lemmas}, Crefname={Lemma}{Lemmas}]
+	{lemma}{Lemma}{cmtleftthm={mylemmabg}{mylemmafr}}{th}
+
+\newtcbtheorem[number within=section,
+	crefname={claim}{claims}, Crefname={Claim}{Claims}]
+	{claim}{Claim}{cmtleftthm={myg!10}{myg!85!black}, borderline west={2pt}{0pt}{myg}}{th}
+
+\newtcbtheorem[number within=section,
+	crefname={example}{examples}, Crefname={Example}{Examples}]
+	{example}{Example}{cmtexamplethm}{ex}
+
+\newtcbtheorem[number within=section,
+	crefname={definition}{definitions}, Crefname={Definition}{Definitions}]
+	{definition}{Definition}{cmtdefinitionthm, title={#2}, #1}{def}
+
+\newtcbtheorem[number within=section,
+	crefname={remark}{remarks}, Crefname={Remark}{Remarks}]
+	{remark}{Remark}{cmtleftthm={myremarkbg}{myremarkfr}}{rmk}
+
+\newtcbtheorem[number within=section,
+	crefname={question}{questions}, Crefname={Question}{Questions}]
+	{question}{Question}{cmtribbonbox, colframe=myb!80!black, title={#2}, #1}{qst}
+
+%================================
+% NOTE BOX (unnumbered)
+%================================
+
+\usetikzlibrary{arrows, calc, shadows.blur}
+
+\newtcolorbox{quotebox}[1][]{
+	cmtleftpanel={myp!10}{myp!85!black},
+	fontupper=\itshape,
+	#1
+}
+\newtcolorbox{note}[1][]{
+	enhanced jigsaw,
+	colback=gray!20!white,
+	colframe=gray!80!black,
+	size=small,
+	boxrule=1pt,
+	title=\textbf{Note:-},
+	halign title=flush center,
+	coltitle=black,
+	breakable,
+	drop shadow=black!50!white,
+	attach boxed title to top left={xshift=1cm,yshift=-\tcboxedtitleheight/2,yshifttext=-\tcboxedtitleheight/2},
+	minipage boxed title=1.5cm,
+	boxed title style={
+		colback=white,
+		size=fbox,
+		boxrule=1pt,
+		boxsep=2pt,
+		underlay={
+			\coordinate (dotA) at ($(interior.west) + (-0.5pt,0)$);
+			\coordinate (dotB) at ($(interior.east) + (0.5pt,0)$);
+			\begin{scope}
+				\clip (interior.north west) rectangle ([xshift=3ex]interior.east);
+				\filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, rounded corners=2pt]
+					(interior.north west) rectangle (interior.south east);
+			\end{scope}
+			\begin{scope}[gray!80!black]
+				\fill (dotA) circle (2pt);
+				\fill (dotB) circle (2pt);
+			\end{scope}
+		},
+	},
+}
+
+%================================
+% CODEBLOCK
+%================================
+
+\lstdefinestyle{cmtcodebase}{
+	basicstyle=\ttfamily\footnotesize,
+	keywordstyle=\bfseries\color{codekeyword},
+	commentstyle=\itshape\color{codecomment},
+	stringstyle=\color{codestring},
+	identifierstyle=\color{codeidentifier},
+	numberstyle=\scriptsize\color{codenumber},
+	showstringspaces=false,
+	tabsize=4,
+	columns=fullflexible,
+	keepspaces=true,
+	upquote=true,
+	breaklines=true,
+	breakatwhitespace=false,
+	postbreak=\mbox{\textcolor{codenumber}{$\hookrightarrow$}\space},
+}
+\lstdefinestyle{cmtcode}{
+	style=cmtcodebase,
+	numbers=left,
+	numbersep=10pt,
+	xleftmargin=2.8em,
+}
+
+\tcbset{
+	cmtcodebox/.style={
+		enhanced, breakable, sharp corners,
+		boxrule=0pt, frame hidden,
+		colback=codebg, colframe=codeframe,
+		coltitle=codeidentifier,
+		fonttitle=\bfseries\sffamily\small,
+		colbacktitle=codegutter,
+		titlerule=0pt,
+		toptitle=4pt, bottomtitle=4pt,
+		lefttitle=8pt, righttitle=8pt,
+		left=8pt, right=8pt, top=6pt, bottom=6pt,
+		boxsep=0pt,
+		before skip=\baselineskip, after skip=\baselineskip,
+		borderline west={2pt}{0pt}{codeaccent},
+		segmentation hidden,
+		listing only,
+	},
+}
+\newtcblisting{codeblock}[2][]{
+	cmtcodebox,
+	title={#2},
+	listing options={style=cmtcode, language=#2},
+	#1
+}
+
+%================================
+% SHORT COMMANDS
+%================================
+
+\newcommand{\dfn}[2]{\begin{definition}{#1}{}#2\end{definition}}
+\newcommand{\ex}[2]{\begin{example}{#1}{}#2\end{example}}
+\newcommand{\rmk}[2]{\begin{remark}{#1}{}#2\end{remark}}
+\newcommand{\clm}[3]{\begin{claim}{#1}{#2}#3\end{claim}}
+\newcommand{\thm}[2]{\begin{theorem}{#1}{}#2\end{theorem}}
+\newcommand{\cor}[2]{\begin{corollary}{#1}{}#2\end{corollary}}
+\newcommand{\mlemma}[2]{\begin{lemma}{#1}{}#2\end{lemma}}
+\newcommand{\qst}[2]{\begin{question}{#1}{}#2\end{question}}
+\newcommand{\nt}[1]{\begin{note}#1\end{note}}
+\newcommand{\qte}[1]{\begin{quotebox}#1\end{quotebox}}

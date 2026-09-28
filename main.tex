@@ -1,0 +1,177 @@
+\input{template}
+\input{boxes}
+\input{macros}
+
+% Not yet in template.tex - added here for this reference doc
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+
+\begin{document}
+\maketitle
+
+\section{Theorem-family boxes}
+
+\thm{Fundamental Theorem of Calculus}{
+}
+
+\cor{Constant Antiderivatives}{
+	If $F$ and $G$ are both antiderivatives of $f$ on an interval $I$,
+	then $F - G$ is constant on $I$.
+}
+
+\mlemma{Bounded Monotone Sequences}{
+	Every bounded, monotone sequence of real numbers converges.
+}
+
+\clm{Sum of Two Evens}{is even}{
+	Let $a, b$ be even integers. Then $a + b$ is even, since
+	$a = 2m$ and $b = 2n$ for some $m, n \in \mathbb{Z}$, so
+	$a + b = 2(m+n)$.
+}
+
+\ex{Evaluating a Limit}{
+	Compute $\displaystyle\lim_{x \to 0} \frac{\sin x}{x}$.
+	By the squeeze theorem, this limit equals $1$.
+}
+
+\dfn{Continuity}{
+	A function $f$ is \emph{continuous} at $a$ if
+	$\displaystyle\lim_{x \to a} f(x) = f(a)$.
+}
+
+\rmk{On Notation}{
+	See above for the formal definition of continuity used
+	throughout these notes.
+}
+
+\qst{Open Problem}{
+	Does the Collatz conjecture hold for all positive integers?
+}
+
+\nt{
+	Boxes that share the \texttt{cmtleftthm} style (theorem, corollary, lemma,
+	claim, remark) are numbered within the section and share the \texttt{th}
+	label family; \texttt{definition} and \texttt{question} use their own
+	\texttt{def}/\texttt{qst} prefixes instead.
+}
+
+\begin{codeblock}{Python}
+def is_prime(n):
+    if n < 2:
+        return False
+    for k in range(2, int(n**0.5) + 1):
+        if n % k == 0:
+            return False
+    return True
+\end{codeblock}
+
+\section{Derivative macros}
+
+Ordinary derivative, with and without an explicit function:
+\begin{itemize}
+	\item \verb|\dv{x}{f}| \quad $\to$ \quad $\dv{x}{f}$
+	\item \verb|\dv{x}| \quad $\to$ \quad $\dv{x}\left(x^2 + 3x\right)$
+	\item \verb|\dv[2]{x}{f}| \quad $\to$ \quad $\dv[2]{x}{f}$
+	\item \verb|\dv[3]{x}| \quad $\to$ \quad $\dv[3]{x}\left(\sin x\right)$
+\end{itemize}
+
+Partial derivative, same four forms:
+\begin{itemize}
+	\item \verb|\ddv{x}{f}| \quad $\to$ \quad $\ddv{x}{f}$
+	\item \verb|\ddv{y}| \quad $\to$ \quad $\ddv{y}\left(x^2 y + \sin(y)\right)$
+	\item \verb|\ddv[2]{x}{\sin(x) + 7y}| \quad $\to$ \quad $\ddv[2]{x}{\sin(x) + 7y}$
+	\item \verb|\ddv[2]{y}| \quad $\to$ \quad $\ddv[2]{y}\left(x^2 y^3\right)$
+\end{itemize}
+
+A mixed use, e.g. writing out a Laplacian in two variables:
+\[
+	\ddv[2]{x}{u} + \ddv[2]{y}{u} = 0
+\]
+
+\section{mhchem}
+
+\subsection{Basic formulas and reactions}
+
+Simple molecular formulas: \ce{H2O}, \ce{CO2}, \ce{C6H12O6}.
+
+Balanced reaction with an arrow:
+\[
+	\ce{2H2 + O2 -> 2H2O}
+\]
+
+Reversible reaction (equilibrium arrows):
+\[
+	\ce{CO2 + H2O <=> H2CO3}
+\]
+
+Reaction with states of matter:
+\[
+	\ce{Na(s) + H2O(l) -> NaOH(aq) + 1/2 H2(g)}
+\]
+
+\subsection{Charges and isotopes}
+
+Ions: \ce{Na+}, \ce{Cl-}, \ce{SO4^2-}, \ce{Fe^3+}.
+
+Precipitation reaction:
+\[
+	\ce{Ag+ + Cl- -> AgCl v}
+\]
+
+Isotope notation:
+\[
+	\ce{^{14}_6C ->[\beta^-] \, ^{14}_7N}
+\]
+
+\subsection{Equilibrium constant}
+
+\[
+	\ce{N2 + 3H2 <=>[$K_c$] 2NH3}
+\]
+
+\section{chemfig}
+
+\subsection{Simple chains}
+
+Ethanol, drawn as a chain of bonded groups:
+\[
+	\chemfig{CH_3-CH_2-OH}
+\]
+
+Propane:
+\[
+	\chemfig{CH_3-CH_2-CH_3}
+\]
+
+\subsection{Double and triple bonds}
+
+Ethene (double bond):
+\[
+	\chemfig{H_2C=CH_2}
+\]
+
+Ethyne (triple bond):
+\[
+	\chemfig{HC~CH}
+\]
+
+\subsection{Rings}
+
+Benzene, drawn as a hexagon with alternating double bonds:
+\[
+	\chemfig{*6(=-=-=-)}
+\]
+
+Benzene, drawn with the circle:
+\[
+	\chemfig{**6(------)}
+\]
+
+\subsection{Branching}
+
+Isobutane, using parentheses to branch off the main chain:
+\[
+	\chemfig{CH_3-CH(-[2]CH_3)-CH_3}
+\]
+
+\end{document}
