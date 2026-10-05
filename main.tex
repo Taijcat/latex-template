@@ -218,7 +218,7 @@ Isobutane, using parentheses to branch off the main chain:
 \caption{The sine function.}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \begin{tikzpicture}
   \begin{axis}[
@@ -227,10 +227,13 @@ Isobutane, using parentheses to branch off the main chain:
     domain=0:2, samples=100,
     ymin=0, ymax=4,
     xmin=0, xmax = 4,
+    xtick = 1.5, ytick = 2,
+    xticklabels = {$V_C$},
+    yticklabels = {$P_C$},
     clip = false
     ]
     \draw[name path=pres,dashed]    (.4,.2) .. controls ++(.2,1) and ++(-.5,0) ..
-      (1.5,2) node[below]{C} node[circle, fill, inner sep = 1.5]{} .. controls ++(.5,0) and ++(-1.5,.5) .. 
+      (1.5,2) node[below]{X} node[circle, fill, inner sep = 1.5]{} .. controls ++(.5,0) and ++(-1.5,.5) .. 
       (3.8,.2) ;
     \path[name path = L] (0,1.2) --++ (4,0);
     \path[name intersections = {of = L and pres}];
@@ -240,12 +243,12 @@ Isobutane, using parentheses to branch off the main chain:
     \draw[dashed] (1.5,0) -- (1.5, 2);
     \draw[dashed] (0,2) -- (1.5, 2);
 
-    \draw[blue] (0.5, 3.5) .. controls ++ (0.1, -1.5) and ++(-0.2, 0) .. (1.5, 2) .. controls ++(0.5, 0) and ++(-1, 0.2) .. (3.8, 0.7) node at ++(0:1em){$T_c$};
+    \draw[blue] (0.5, 3.5) .. controls ++ (0.1, -1.5) and ++(-0.2, 0) .. (1.5, 2) .. controls ++(0.5, 0) and ++(-1, 0.2) .. (3.8, 0.7) node at ++(0:1em){$T_C$};
     \draw (0.4, 3.5) to[bend right = 7] (B) -- (A) to[bend right = 10] (3.8, 0.4) node[right]{$T_1$};
     \draw (0.6, 3.5) to[bend right = 17] (3.8, 1) node[right]{$T_2$};
   \end{axis}
 \end{tikzpicture}
-\caption{The sine function.}
+\caption{Multiple isotherms of a typical real gas.}
 \end{figure}
 
 \end{document}
