@@ -21,6 +21,16 @@
 			{\frac{\partial^{#1}}{\partial #2^{#1}}}}
 }
 
+\newcommand{\latticelabels}[4]{%
+  \foreach \x in {#1,...,#2} {
+    \foreach \y in {#3,...,#4} {
+      \fill[gray] (\x,\y) circle (1pt);
+      \node[font=\tiny, gray, below right, inner sep=1pt]
+        at (\x,\y) {(\x,\y)};
+    }
+  }
+}
+
 \newcommand{\m}{\mathrm{m}}
 \newcommand{\mol}{\mathrm{mol}}
 \newcommand{\cm}{\mathrm{cm}}

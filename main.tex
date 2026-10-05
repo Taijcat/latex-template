@@ -174,4 +174,33 @@ Isobutane, using parentheses to branch off the main chain:
 	\chemfig{CH_3-CH(-[2]CH_3)-CH_3}
 \]
 
+\begin{figure}
+\centering
+\begin{tikzpicture}[scale=1.1]
+  % Axes
+  \draw[->] (-0.2,-3.2) -- (-0.2,3.0) node[above] {$PE$};
+  \draw[->] (-0.2,0) -- (7.2,0);
+  \node[right] at (5.6,0.6) {\textit{Distance of}};
+  \node[right] at (5.6,0.1) {\textit{separation}};
+
+   \latticelabels{0}{6}{-3}{3}
+
+  % Tick labels
+  \node[left] at (-0.3,0) {$0$};
+  \node[left] at (-0.3,1.8) {$+$};
+  \node[left] at (-0.3,-1.8) {$-$};
+
+  % Curve defined by points and tangent angles
+  % P1 (0.0,2.8): leaves steeply downward (-80 deg)
+  % P2 (1.6,-2.5): horizontal tangent (minimum), arrives at 180 and leaves at 0
+  % P3 (6.6,-0.05): arrives horizontally from the left
+  \draw[thick] (0.0,2.8)
+    to[out=-80, in=180] (1.6,-2.5)
+    to[out=0,   in=180] (6.6,-0.05);
+\end{tikzpicture}
+\caption{Potential energy as a function of distance of separation between two molecules.}
+\label{fig:pe}
+\end{figure}
+
+
 \end{document}
