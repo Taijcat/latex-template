@@ -65,7 +65,8 @@ def is_prime(n):
     return True
 \end{codeblock}
 
-\section{Derivative macros}
+\section{Macros}
+\section{Derivatives}
 
 Ordinary derivative, with and without an explicit function:
 \begin{itemize}
@@ -84,99 +85,80 @@ Partial derivative, same four forms:
 \end{itemize}
 
 A mixed use, e.g. writing out a Laplacian in two variables:
-\[
-	\ddv[2]{x}{u} + \ddv[2]{y}{u} = 0
-\]
+\[\ddv[2]{x}{u} + \ddv[2]{y}{u} = 0\]
 
-\section{mhchem}
+\subsection{Units}
+\[\m, \mol, \cm, \kg, \K, \s, \Pa\]
 
-\subsection{Basic formulas and reactions}
+\subsection{QoL}
+\[\(\frac{1}{2}\)\]
+
+\section{Examples}
+\subsection{mchem}
 
 Simple molecular formulas: \ce{H2O}, \ce{CO2}, \ce{C6H12O6}.
-
 Balanced reaction with an arrow:
-\[
-	\ce{2H2 + O2 -> 2H2O}
-\]
+\[\ce{2H2 + O2 -> 2H2O}\]
 
 Reversible reaction (equilibrium arrows):
-\[
-	\ce{CO2 + H2O <=> H2CO3}
-\]
+\[\ce{CO2 + H2O <=> H2CO3}\]
 
 Reaction with states of matter:
-\[
-	\ce{Na(s) + H2O(l) -> NaOH(aq) + 1/2 H2(g)}
-\]
-
-\subsection{Charges and isotopes}
+\[\ce{Na(s) + H2O(l) -> NaOH(aq) + 1/2 H2(g)}\]
 
 Ions: \ce{Na+}, \ce{Cl-}, \ce{SO4^2-}, \ce{Fe^3+}.
 
 Precipitation reaction:
-\[
-	\ce{Ag+ + Cl- -> AgCl v}
-\]
+\[\ce{Ag+ + Cl- -> AgCl v}\]
 
 Isotope notation:
-\[
-	\ce{^{14}_6C ->[\beta^-] \, ^{14}_7N}
-\]
+\[\ce{^{14}_6C ->[\beta^-] \, ^{14}_7N}\]
 
-\subsection{Equilibrium constant}
+\[\ce{N2 + 3H2 <=>[$K_c$] 2NH3}\]
 
-\[
-	\ce{N2 + 3H2 <=>[$K_c$] 2NH3}
-\]
+\subsection{chemfig}
 
-\section{chemfig}
-
-\subsection{Simple chains}
-
-Ethanol, drawn as a chain of bonded groups:
-\[
-	\chemfig{CH_3-CH_2-OH}
-\]
-
-Propane:
-\[
-	\chemfig{CH_3-CH_2-CH_3}
-\]
-
-\subsection{Double and triple bonds}
-
-Ethene (double bond):
-\[
-	\chemfig{H_2C=CH_2}
-\]
-
-Ethyne (triple bond):
-\[
-	\chemfig{HC~CH}
-\]
-
-\subsection{Rings}
+Molecules drawn as a chain of bonded groups:
+\[\chemfig{CH_2=CH-OH}\]
+\[\chemfig{CH~CH}\]
 
 Benzene, drawn as a hexagon with alternating double bonds:
-\[
-	\chemfig{*6(=-=-=-)}
-\]
+\[\chemfig{*6(=-=-=-)}\]
 
 Benzene, drawn with the circle:
-\[
-	\chemfig{**6(------)}
-\]
+\[\chemfig{**6(------)}\]
 
-\subsection{Branching}
 
 Isobutane, using parentheses to branch off the main chain:
-\[
-	\chemfig{CH_3-CH(-[2]CH_3)-CH_3}
-\]
+\[\chemfig{CH_3-CH(-[2]CH_3)-CH_3}\]
+
+\subsubsection{Mechanisms}
+Reaction mechanisms involving resonance
+\begin{center}
+  \schemestart
+  \chemfig{H_3C-[:30]C(=[:90]\Charge{0=\:, 180=\:}{O})-[:-30]CH_3}
+  \arrow{->}
+  \chemfig{@{c1}\charge{90:1pt=\:}{C}(-[:-120]H)(-[:-60]H)-[@{cb1}:30]C(=[@{ob1}:90]@{o1}\Charge{0=\:, 180=\:}{O})-[:-30]CH_3}
+  \arrow{<->}
+  \chemfig{@{c2}C(-[:-120]H)(-[:-60]H)=[@{cb2}:30]C(-[@{ob2}:90]@{o2}\Charge{0=\:, 90=\:, 180=\:}{O})-[:-30]CH_3}
+  \schemestop
+  \chemmove{
+    % Molecule 1
+    \node at ($(c1) + (-6pt, 9pt)$) {$\ominus$};
+    \draw[shorten >=2pt] ($(c1) + (0, 7pt)$) .. controls +(90:0.5) and +(135:0.1) .. (cb1);
+    \draw[shorten >=2pt] ($(ob1) + (2pt, 0)$) .. controls +(0:0.5) and +(-45:7pt) .. (o1);
+    % Molecule 2
+    \node at ($(o2) + (6pt, 9pt)$) {$\ominus$};
+    \draw[shorten <=2pt] (cb2) .. controls +(135:0.1) and +(90:0.5) .. ($(c2) + (0, 5pt)$);
+    \draw[shorten <=2pt] (o2) .. controls +(0:1) and +(0:0.5) .. ($(ob2) + (2pt, 0)$);
+  }
+\end{center}
+
+\subsection{tikz}
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[scale=1.1]
+\begin{tikzpicture}[scale=0.75]
   % Axes
   \draw[->] (-0.2,-3.2) -- (-0.2,3.0) node[above] {$PE$};
   \draw[->] (-0.2,0) -- (7.2,0);
@@ -204,7 +186,7 @@ Isobutane, using parentheses to branch off the main chain:
 
 \begin{figure}
 \centering
-\begin{tikzpicture}
+\begin{tikzpicture}[scale = 0.5]
   \begin{axis}[
     axis lines=middle,
     xlabel={$x$}, ylabel={$\sin x$},
@@ -218,9 +200,9 @@ Isobutane, using parentheses to branch off the main chain:
 \caption{The sine function.}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}
 \centering
-\begin{tikzpicture}
+\begin{tikzpicture}[scale = 0.75]
   \begin{axis}[
     axis lines=middle,
     xlabel={$V$}, ylabel={$p$},
